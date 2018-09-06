@@ -21,11 +21,11 @@ public class NetworkSimplexTest {
         supplyMap.set(node2, 2);
         supplyMap.set(node3, -3);
 
-        SmartDigraph.ArcMap costMap = graph.createArcMap();
-        costMap.set(arc1, 10);
-        costMap.set(arc2, 20);
+        SmartDigraph.ArcMapDouble costMap = graph.createArcMapDouble();
+        costMap.set(arc1, 10.5);
+        costMap.set(arc2, 20.1);
 
-        SmartDigraph.ArcMap upperMap = graph.createArcMap();
+        SmartDigraph.ArcMapLong upperMap = graph.createArcMapLong();
         upperMap.set(arc1, 1);
         upperMap.set(arc2, 3);
 
@@ -96,11 +96,11 @@ public class NetworkSimplexTest {
         supplyMap.set(node2, 2);
         supplyMap.set(node3, -3);
 
-        ListDigraph.ArcMap costMap = graph.createArcMap();
-        costMap.set(arc1, 10);
-        costMap.set(arc2, 20);
+        ListDigraph.ArcMapDouble costMap = graph.createArcMapDouble();
+        costMap.set(arc1, 10.0);
+        costMap.set(arc2, 20.2);
 
-        ListDigraph.ArcMap upperMap = graph.createArcMap();
+        ListDigraph.ArcMapLong upperMap = graph.createArcMapLong();
         upperMap.set(arc1, 1);
         upperMap.set(arc2, 3);
 

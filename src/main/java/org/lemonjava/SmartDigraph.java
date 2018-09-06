@@ -23,8 +23,12 @@ public class SmartDigraph extends AbstractNativeObject {
         return new NodeMap();
     }
 
-    public ArcMap createArcMap() {
-        return new ArcMap();
+    public ArcMapLong createArcMapLong() {
+        return new ArcMapLong();
+    }
+
+    public ArcMapDouble createArcMapDouble() {
+        return new ArcMapDouble();
     }
 
     public NetworkSimplex networkSimplex() {
@@ -54,11 +58,11 @@ public class SmartDigraph extends AbstractNativeObject {
     public interface MinCostFlowAlgorithm extends AutoCloseable {
         void setSupplyMap(NodeMap map);
 
-        void setCostMap(ArcMap map);
+        void setCostMap(ArcMapDouble map);
 
-        void setLowerMap(ArcMap map);
+        void setLowerMap(ArcMapLong map);
 
-        void setUpperMap(ArcMap map);
+        void setUpperMap(ArcMapLong map);
 
         MinCostFlowResultType run();
 
@@ -109,9 +113,9 @@ public class SmartDigraph extends AbstractNativeObject {
         }
     }
 
-    public class ArcMap extends AbstractNativeObject {
+    public class ArcMapLong extends AbstractNativeObject {
 
-        private ArcMap() {
+        private ArcMapLong() {
             ptr = Library.LIB.SmartDigraph_ArcMap_LONG_construct(SmartDigraph.this.ptr);
         }
 
@@ -129,132 +133,152 @@ public class SmartDigraph extends AbstractNativeObject {
         }
     }
 
-    public class NetworkSimplex extends AbstractNativeObject implements MinCostFlowAlgorithm {
+    public class ArcMapDouble extends AbstractNativeObject {
 
-        private NetworkSimplex() {
-            ptr = Library.LIB.SmartDigraph_NetworkSimplex_LONG_construct(SmartDigraph.this.ptr);
+        private ArcMapDouble() {
+            ptr = Library.LIB.SmartDigraph_ArcMap_DOUBLE_construct(SmartDigraph.this.ptr);
         }
 
         @Override
         protected void delete() {
-            Library.LIB.SmartDigraph_NetworkSimplex_LONG_destruct(ptr);
+            Library.LIB.SmartDigraph_ArcMap_DOUBLE_destruct(ptr);
+        }
+
+        public double get(Arc arc) {
+            return Library.LIB.SmartDigraph_ArcMap_DOUBLE_get(ptr, arc.ptr);
+        }
+
+        public void set(Arc arc, double value) {
+            Library.LIB.SmartDigraph_ArcMap_DOUBLE_set(ptr, arc.ptr, value);
+        }
+    }
+
+    public class NetworkSimplex extends AbstractNativeObject implements MinCostFlowAlgorithm {
+
+        private NetworkSimplex() {
+            ptr = Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_construct(SmartDigraph.this.ptr);
+        }
+
+        @Override
+        protected void delete() {
+            Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_destruct(ptr);
         }
 
         @Override
         public void setSupplyMap(NodeMap map) {
-            Library.LIB.SmartDigraph_NetworkSimplex_LONG_setSupplyMap(ptr, map.ptr);
+            Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_setSupplyMap(ptr, map.ptr);
         }
 
         @Override
-        public void setCostMap(ArcMap map) {
-            Library.LIB.SmartDigraph_NetworkSimplex_LONG_setCostMap(ptr, map.ptr);
+        public void setCostMap(ArcMapDouble map) {
+            Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_setCostMap(ptr, map.ptr);
         }
 
         @Override
-        public void setLowerMap(ArcMap map) {
-            Library.LIB.SmartDigraph_NetworkSimplex_LONG_setLowerMap(ptr, map.ptr);
+        public void setLowerMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_setLowerMap(ptr, map.ptr);
         }
 
         @Override
-        public void setUpperMap(ArcMap map) {
-            Library.LIB.SmartDigraph_NetworkSimplex_LONG_setUpperMap(ptr, map.ptr);
+        public void setUpperMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_setUpperMap(ptr, map.ptr);
         }
 
         @Override
         public MinCostFlowResultType run() {
-            int r = Library.LIB.SmartDigraph_NetworkSimplex_LONG_run(ptr);
+            int r = Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_run(ptr);
             return getMinCostFlowResultType(r);
         }
 
         @Override
         public long flow(Arc arc) {
-            return Library.LIB.SmartDigraph_NetworkSimplex_LONG_flow(ptr, arc.ptr);
+            return Library.LIB.SmartDigraph_NetworkSimplex_LONG_DOUBLE_flow(ptr, arc.ptr);
         }
     }
 
     public class CostScaling extends AbstractNativeObject implements MinCostFlowAlgorithm {
 
         private CostScaling() {
-            ptr = Library.LIB.SmartDigraph_CostScaling_LONG_construct(SmartDigraph.this.ptr);
+            ptr = Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_construct(SmartDigraph.this.ptr);
         }
 
         @Override
         protected void delete() {
-            Library.LIB.SmartDigraph_CostScaling_LONG_destruct(ptr);
+            Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_destruct(ptr);
         }
 
         @Override
         public void setSupplyMap(NodeMap map) {
-            Library.LIB.SmartDigraph_CostScaling_LONG_setSupplyMap(ptr, map.ptr);
+            Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_setSupplyMap(ptr, map.ptr);
         }
 
         @Override
-        public void setCostMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CostScaling_LONG_setCostMap(ptr, map.ptr);
+        public void setCostMap(ArcMapDouble map) {
+            Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_setCostMap(ptr, map.ptr);
         }
 
         @Override
-        public void setLowerMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CostScaling_LONG_setLowerMap(ptr, map.ptr);
+        public void setLowerMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_setLowerMap(ptr, map.ptr);
         }
 
         @Override
-        public void setUpperMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CostScaling_LONG_setUpperMap(ptr, map.ptr);
+        public void setUpperMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_setUpperMap(ptr, map.ptr);
         }
 
         @Override
         public MinCostFlowResultType run() {
-            int r = Library.LIB.SmartDigraph_CostScaling_LONG_run(ptr);
+            int r = Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_run(ptr);
             return getMinCostFlowResultType(r);
         }
 
         @Override
         public long flow(Arc arc) {
-            return Library.LIB.SmartDigraph_CostScaling_LONG_flow(ptr, arc.ptr);
+            return Library.LIB.SmartDigraph_CostScaling_LONG_DOUBLE_flow(ptr, arc.ptr);
         }
     }
 
     public class CapacityScaling extends AbstractNativeObject implements MinCostFlowAlgorithm {
 
         private CapacityScaling() {
-            ptr = Library.LIB.SmartDigraph_CapacityScaling_LONG_construct(SmartDigraph.this.ptr);
+            ptr = Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_construct(SmartDigraph.this.ptr);
         }
 
         @Override
         protected void delete() {
-            Library.LIB.SmartDigraph_CapacityScaling_LONG_destruct(ptr);
+            Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_destruct(ptr);
         }
 
         @Override
         public void setSupplyMap(NodeMap map) {
-            Library.LIB.SmartDigraph_CapacityScaling_LONG_setSupplyMap(ptr, map.ptr);
+            Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_setSupplyMap(ptr, map.ptr);
         }
 
         @Override
-        public void setCostMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CapacityScaling_LONG_setCostMap(ptr, map.ptr);
+        public void setCostMap(ArcMapDouble map) {
+            Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_setCostMap(ptr, map.ptr);
         }
 
         @Override
-        public void setLowerMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CapacityScaling_LONG_setLowerMap(ptr, map.ptr);
+        public void setLowerMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_setLowerMap(ptr, map.ptr);
         }
 
         @Override
-        public void setUpperMap(ArcMap map) {
-            Library.LIB.SmartDigraph_CapacityScaling_LONG_setUpperMap(ptr, map.ptr);
+        public void setUpperMap(ArcMapLong map) {
+            Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_setUpperMap(ptr, map.ptr);
         }
 
         @Override
         public MinCostFlowResultType run() {
-            int r = Library.LIB.SmartDigraph_CapacityScaling_LONG_run(ptr);
+            int r = Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_run(ptr);
             return getMinCostFlowResultType(r);
         }
 
         @Override
         public long flow(Arc arc) {
-            return Library.LIB.SmartDigraph_CapacityScaling_LONG_flow(ptr, arc.ptr);
+            return Library.LIB.SmartDigraph_CapacityScaling_LONG_DOUBLE_flow(ptr, arc.ptr);
         }
     }
 }

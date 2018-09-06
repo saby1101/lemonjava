@@ -27,18 +27,18 @@ public class Library {
         final boolean osx = os.startsWith("Mac OS X");
         final boolean windows = os.startsWith("Windows");
 
-        String ext;
+        String suffix;
         if (arch64 && linux) {
-            ext = ".so";
+            suffix = "-linux-amd64.so";
         } else if (arch64 && osx) {
-            ext = ".dylib";
+            suffix = "-osx-amd64.dylib";
         } else if (arch64 && windows) {
-            ext = ".dll";
+            suffix = "-win-amd64.dll";
         } else {
             throw new IllegalStateException("Couldn't find lib for lemonc");
         }
 
-        final String fileName = "liblemonc-1.0.0" + ext;
+        final String fileName = "liblemonc" + suffix;
         final String libToLoad = extract(fileName);
 
         LIB = create(Lemon.class).load(libToLoad);
@@ -96,53 +96,61 @@ public class Library {
 
         void SmartDigraph_ArcMap_LONG_set(Pointer mapPtr, Pointer nodePtr, long value);
 
-        Pointer SmartDigraph_NetworkSimplex_LONG_construct(Pointer graphPtr);
+        Pointer SmartDigraph_ArcMap_DOUBLE_construct(Pointer graphPtr);
 
-        void SmartDigraph_NetworkSimplex_LONG_destruct(Pointer ptr);
+        void SmartDigraph_ArcMap_DOUBLE_destruct(Pointer ptr);
 
-        void SmartDigraph_NetworkSimplex_LONG_setCostMap(Pointer algoPtr, Pointer mapPtr);
+        double SmartDigraph_ArcMap_DOUBLE_get(Pointer mapPtr, Pointer nodePtr);
 
-        void SmartDigraph_NetworkSimplex_LONG_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+        void SmartDigraph_ArcMap_DOUBLE_set(Pointer mapPtr, Pointer nodePtr, double value);
 
-        void SmartDigraph_NetworkSimplex_LONG_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+        Pointer SmartDigraph_NetworkSimplex_LONG_DOUBLE_construct(Pointer graphPtr);
 
-        void SmartDigraph_NetworkSimplex_LONG_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+        void SmartDigraph_NetworkSimplex_LONG_DOUBLE_destruct(Pointer ptr);
 
-        int SmartDigraph_NetworkSimplex_LONG_run(Pointer algoPtr);
+        void SmartDigraph_NetworkSimplex_LONG_DOUBLE_setCostMap(Pointer algoPtr, Pointer mapPtr);
 
-        long SmartDigraph_NetworkSimplex_LONG_flow(Pointer algoPtr, Pointer arcPtr);
+        void SmartDigraph_NetworkSimplex_LONG_DOUBLE_setLowerMap(Pointer algoPtr, Pointer mapPtr);
 
-        Pointer SmartDigraph_CostScaling_LONG_construct(Pointer graphPtr);
+        void SmartDigraph_NetworkSimplex_LONG_DOUBLE_setUpperMap(Pointer algoPtr, Pointer mapPtr);
 
-        void SmartDigraph_CostScaling_LONG_destruct(Pointer ptr);
+        void SmartDigraph_NetworkSimplex_LONG_DOUBLE_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
 
-        void SmartDigraph_CostScaling_LONG_setCostMap(Pointer algoPtr, Pointer mapPtr);
+        int SmartDigraph_NetworkSimplex_LONG_DOUBLE_run(Pointer algoPtr);
 
-        void SmartDigraph_CostScaling_LONG_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+        long SmartDigraph_NetworkSimplex_LONG_DOUBLE_flow(Pointer algoPtr, Pointer arcPtr);
 
-        void SmartDigraph_CostScaling_LONG_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+        Pointer SmartDigraph_CostScaling_LONG_DOUBLE_construct(Pointer graphPtr);
 
-        void SmartDigraph_CostScaling_LONG_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+        void SmartDigraph_CostScaling_LONG_DOUBLE_destruct(Pointer ptr);
 
-        int SmartDigraph_CostScaling_LONG_run(Pointer algoPtr);
+        void SmartDigraph_CostScaling_LONG_DOUBLE_setCostMap(Pointer algoPtr, Pointer mapPtr);
 
-        long SmartDigraph_CostScaling_LONG_flow(Pointer algoPtr, Pointer arcPtr);
+        void SmartDigraph_CostScaling_LONG_DOUBLE_setLowerMap(Pointer algoPtr, Pointer mapPtr);
 
-        Pointer SmartDigraph_CapacityScaling_LONG_construct(Pointer graphPtr);
+        void SmartDigraph_CostScaling_LONG_DOUBLE_setUpperMap(Pointer algoPtr, Pointer mapPtr);
 
-        void SmartDigraph_CapacityScaling_LONG_destruct(Pointer ptr);
+        void SmartDigraph_CostScaling_LONG_DOUBLE_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
 
-        void SmartDigraph_CapacityScaling_LONG_setCostMap(Pointer algoPtr, Pointer mapPtr);
+        int SmartDigraph_CostScaling_LONG_DOUBLE_run(Pointer algoPtr);
 
-        void SmartDigraph_CapacityScaling_LONG_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+        long SmartDigraph_CostScaling_LONG_DOUBLE_flow(Pointer algoPtr, Pointer arcPtr);
 
-        void SmartDigraph_CapacityScaling_LONG_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+        Pointer SmartDigraph_CapacityScaling_LONG_DOUBLE_construct(Pointer graphPtr);
 
-        void SmartDigraph_CapacityScaling_LONG_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+        void SmartDigraph_CapacityScaling_LONG_DOUBLE_destruct(Pointer ptr);
 
-        int SmartDigraph_CapacityScaling_LONG_run(Pointer algoPtr);
+        void SmartDigraph_CapacityScaling_LONG_DOUBLE_setCostMap(Pointer algoPtr, Pointer mapPtr);
 
-        long SmartDigraph_CapacityScaling_LONG_flow(Pointer algoPtr, Pointer arcPtr);
+        void SmartDigraph_CapacityScaling_LONG_DOUBLE_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SmartDigraph_CapacityScaling_LONG_DOUBLE_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SmartDigraph_CapacityScaling_LONG_DOUBLE_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+
+        int SmartDigraph_CapacityScaling_LONG_DOUBLE_run(Pointer algoPtr);
+
+        long SmartDigraph_CapacityScaling_LONG_DOUBLE_flow(Pointer algoPtr, Pointer arcPtr);
 
         Pointer ListDigraph_construct();
 
@@ -168,20 +176,28 @@ public class Library {
 
         void ListDigraph_ArcMap_LONG_set(Pointer mapPtr, Pointer nodePtr, long value);
 
-        Pointer ListDigraph_NetworkSimplex_LONG_construct(Pointer graphPtr);
+        Pointer ListDigraph_ArcMap_DOUBLE_construct(Pointer graphPtr);
 
-        void ListDigraph_NetworkSimplex_LONG_destruct(Pointer ptr);
+        void ListDigraph_ArcMap_DOUBLE_destruct(Pointer ptr);
 
-        void ListDigraph_NetworkSimplex_LONG_setCostMap(Pointer algoPtr, Pointer mapPtr);
+        double ListDigraph_ArcMap_DOUBLE_get(Pointer mapPtr, Pointer nodePtr);
 
-        void ListDigraph_NetworkSimplex_LONG_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+        void ListDigraph_ArcMap_DOUBLE_set(Pointer mapPtr, Pointer nodePtr, double value);
 
-        void ListDigraph_NetworkSimplex_LONG_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+        Pointer ListDigraph_NetworkSimplex_LONG_DOUBLE_construct(Pointer graphPtr);
 
-        void ListDigraph_NetworkSimplex_LONG_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+        void ListDigraph_NetworkSimplex_LONG_DOUBLE_destruct(Pointer ptr);
 
-        int ListDigraph_NetworkSimplex_LONG_run(Pointer algoPtr);
+        void ListDigraph_NetworkSimplex_LONG_DOUBLE_setCostMap(Pointer algoPtr, Pointer mapPtr);
 
-        long ListDigraph_NetworkSimplex_LONG_flow(Pointer algoPtr, Pointer arcPtr);
+        void ListDigraph_NetworkSimplex_LONG_DOUBLE_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+
+        void ListDigraph_NetworkSimplex_LONG_DOUBLE_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+
+        void ListDigraph_NetworkSimplex_LONG_DOUBLE_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+
+        int ListDigraph_NetworkSimplex_LONG_DOUBLE_run(Pointer algoPtr);
+
+        long ListDigraph_NetworkSimplex_LONG_DOUBLE_flow(Pointer algoPtr, Pointer arcPtr);
     }
 }

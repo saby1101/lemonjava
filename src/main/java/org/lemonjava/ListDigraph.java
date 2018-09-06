@@ -23,12 +23,30 @@ public class ListDigraph extends AbstractNativeObject {
         return new NodeMap();
     }
 
-    public ArcMap createArcMap() {
-        return new ArcMap();
+    public ArcMapLong createArcMapLong() {
+        return new ArcMapLong();
+    }
+
+    public ArcMapDouble createArcMapDouble() {
+        return new ArcMapDouble();
     }
 
     public NetworkSimplex networkSimplex() {
         return new NetworkSimplex();
+    }
+
+    public interface MinCostFlowAlgorithm extends AutoCloseable {
+        void setSupplyMap(NodeMap map);
+
+        void setCostMap(ArcMapDouble map);
+
+        void setLowerMap(ArcMapLong map);
+
+        void setUpperMap(ArcMapLong map);
+
+        MinCostFlowResultType run();
+
+        long flow(Arc arc);
     }
 
     public class Node extends AbstractNativeObject {
@@ -75,9 +93,29 @@ public class ListDigraph extends AbstractNativeObject {
         }
     }
 
-    public class ArcMap extends AbstractNativeObject {
+    public class ArcMapDouble extends AbstractNativeObject {
 
-        private ArcMap() {
+        private ArcMapDouble() {
+            ptr = Library.LIB.ListDigraph_ArcMap_DOUBLE_construct(ListDigraph.this.ptr);
+        }
+
+        @Override
+        protected void delete() {
+            Library.LIB.ListDigraph_ArcMap_DOUBLE_destruct(ptr);
+        }
+
+        public double get(Arc arc) {
+            return Library.LIB.ListDigraph_ArcMap_DOUBLE_get(ptr, arc.ptr);
+        }
+
+        public void set(Arc arc, double value) {
+            Library.LIB.ListDigraph_ArcMap_DOUBLE_set(ptr, arc.ptr, value);
+        }
+    }
+
+    public class ArcMapLong extends AbstractNativeObject {
+
+        private ArcMapLong() {
             ptr = Library.LIB.ListDigraph_ArcMap_LONG_construct(ListDigraph.this.ptr);
         }
 
@@ -95,54 +133,40 @@ public class ListDigraph extends AbstractNativeObject {
         }
     }
 
-    public interface MinCostFlowAlgorithm extends AutoCloseable {
-        void setSupplyMap(NodeMap map);
-
-        void setCostMap(ArcMap map);
-
-        void setLowerMap(ArcMap map);
-
-        void setUpperMap(ArcMap map);
-
-        MinCostFlowResultType run();
-
-        long flow(Arc arc);
-    }
-
     public class NetworkSimplex extends AbstractNativeObject implements MinCostFlowAlgorithm {
 
         private NetworkSimplex() {
-            ptr = Library.LIB.ListDigraph_NetworkSimplex_LONG_construct(ListDigraph.this.ptr);
+            ptr = Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_construct(ListDigraph.this.ptr);
         }
 
         @Override
         protected void delete() {
-            Library.LIB.ListDigraph_NetworkSimplex_LONG_destruct(ptr);
+            Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_destruct(ptr);
         }
 
         @Override
         public void setSupplyMap(NodeMap map) {
-            Library.LIB.ListDigraph_NetworkSimplex_LONG_setSupplyMap(ptr, map.ptr);
+            Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_setSupplyMap(ptr, map.ptr);
         }
 
         @Override
-        public void setCostMap(ArcMap map) {
-            Library.LIB.ListDigraph_NetworkSimplex_LONG_setCostMap(ptr, map.ptr);
+        public void setCostMap(ArcMapDouble map) {
+            Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_setCostMap(ptr, map.ptr);
         }
 
         @Override
-        public void setLowerMap(ArcMap map) {
-            Library.LIB.ListDigraph_NetworkSimplex_LONG_setLowerMap(ptr, map.ptr);
+        public void setLowerMap(ArcMapLong map) {
+            Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_setLowerMap(ptr, map.ptr);
         }
 
         @Override
-        public void setUpperMap(ArcMap map) {
-            Library.LIB.ListDigraph_NetworkSimplex_LONG_setUpperMap(ptr, map.ptr);
+        public void setUpperMap(ArcMapLong map) {
+            Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_setUpperMap(ptr, map.ptr);
         }
 
         @Override
         public MinCostFlowResultType run() {
-            int r = Library.LIB.ListDigraph_NetworkSimplex_LONG_run(ptr);
+            int r = Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_run(ptr);
             switch (r) {
                 case 0:
                     return MinCostFlowResultType.INFEASIBLE;
@@ -156,7 +180,7 @@ public class ListDigraph extends AbstractNativeObject {
 
         @Override
         public long flow(Arc arc) {
-            return Library.LIB.ListDigraph_NetworkSimplex_LONG_flow(ptr, arc.ptr);
+            return Library.LIB.ListDigraph_NetworkSimplex_LONG_DOUBLE_flow(ptr, arc.ptr);
         }
     }
 }
