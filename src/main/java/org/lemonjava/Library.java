@@ -32,8 +32,8 @@ public class Library {
             suffix = "-linux-amd64.so";
         } else if (arch64 && osx) {
             suffix = "-osx-amd64.dylib";
-        } else if (arch64 && windows) {
-            suffix = "-win-amd64.dll";
+        } else if (windows) {
+            throw new IllegalArgumentException("Windows not supported!");
         } else {
             throw new IllegalStateException("Couldn't find lib for lemonc");
         }
@@ -199,5 +199,57 @@ public class Library {
         int ListDigraph_NetworkSimplex_LONG_DOUBLE_run(Pointer algoPtr);
 
         long ListDigraph_NetworkSimplex_LONG_DOUBLE_flow(Pointer algoPtr, Pointer arcPtr);
+
+        Pointer PV_construct();
+
+        void PV_destruct(Pointer ptr);
+
+        void PV_push_back(Pointer ptr, int first, int second);
+
+        Pointer SG_construct();
+
+        void SG_destruct(Pointer ptr);
+
+        void SG_build(Pointer graphPtr, int nodeCount, Pointer arcsPtr);
+
+        Pointer SG_NodeMap_LONG_construct(Pointer graphPtr);
+
+        void SG_NodeMap_LONG_destruct(Pointer ptr);
+
+        long SG_NodeMap_LONG_get(Pointer mapPtr, int nodeIdx);
+
+        void SG_NodeMap_LONG_set(Pointer mapPtr, int nodeIdx, long value);
+
+        Pointer SG_ArcMap_LONG_construct(Pointer graphPtr);
+
+        void SG_ArcMap_LONG_destruct(Pointer ptr);
+
+        long SG_ArcMap_LONG_get(Pointer mapPtr, int arcIdx);
+
+        void SG_ArcMap_LONG_set(Pointer mapPtr, int arcIdx, long value);
+
+        Pointer SG_ArcMap_DOUBLE_construct(Pointer graphPtr);
+
+        void SG_ArcMap_DOUBLE_destruct(Pointer ptr);
+
+        double SG_ArcMap_DOUBLE_get(Pointer mapPtr, int arcIdx);
+
+        void SG_ArcMap_DOUBLE_set(Pointer mapPtr, int arcIdx, double value);
+
+        Pointer SG_CostScaling_LONG_DOUBLE_construct(Pointer graphPtr);
+
+        void SG_CostScaling_LONG_DOUBLE_destruct(Pointer ptr);
+
+        void SG_CostScaling_LONG_DOUBLE_setCostMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_DOUBLE_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_DOUBLE_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_DOUBLE_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+
+        int SG_CostScaling_LONG_DOUBLE_run(Pointer algoPtr);
+
+        long SG_CostScaling_LONG_DOUBLE_flow(Pointer algoPtr, int arcIdx);
     }
 }
