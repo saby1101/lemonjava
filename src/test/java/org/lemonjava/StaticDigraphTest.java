@@ -48,7 +48,7 @@ public class StaticDigraphTest {
         Assert.assertEquals(2, upperMap.get(2));
         Assert.assertEquals(3, upperMap.get(3));
 
-        StaticDigraph.CostScaling algo = graph.costScaling();
+        StaticDigraph.CostScalingDouble algo = graph.costScalingDouble();
         algo.setCostMap(costMap);
         algo.setUpperMap(upperMap);
         algo.setSupplyMap(supplyMap);

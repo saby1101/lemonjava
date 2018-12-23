@@ -251,5 +251,21 @@ public class Library {
         int SG_CostScaling_LONG_DOUBLE_run(Pointer algoPtr);
 
         long SG_CostScaling_LONG_DOUBLE_flow(Pointer algoPtr, int arcIdx);
+
+        Pointer SG_CostScaling_LONG_LONG_construct(Pointer graphPtr);
+
+        void SG_CostScaling_LONG_LONG_destruct(Pointer ptr);
+
+        void SG_CostScaling_LONG_LONG_setCostMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_LONG_setLowerMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_LONG_setUpperMap(Pointer algoPtr, Pointer mapPtr);
+
+        void SG_CostScaling_LONG_LONG_setSupplyMap(Pointer algoPtr, Pointer mapPtr);
+
+        int SG_CostScaling_LONG_LONG_run(Pointer algoPtr);
+
+        long SG_CostScaling_LONG_LONG_flow(Pointer algoPtr, int arcIdx);
     }
 }

@@ -27,8 +27,12 @@ public class StaticDigraph extends AbstractNativeObject {
         return new ArcMapDouble();
     }
 
-    public CostScaling costScaling() {
-        return new CostScaling();
+    public CostScalingDouble costScalingDouble() {
+        return new CostScalingDouble();
+    }
+
+    public CostScalingLong costScalingLong() {
+        return new CostScalingLong();
     }
 
     private MinCostFlowResultType getMinCostFlowResultType(int r) {
@@ -43,10 +47,24 @@ public class StaticDigraph extends AbstractNativeObject {
         throw new LemonException("Unknown result type!");
     }
 
-    public interface MinCostFlowAlgorithm extends AutoCloseable {
+    public interface MinCostFlowAlgorithmDouble extends AutoCloseable {
         void setSupplyMap(NodeMap map);
 
         void setCostMap(ArcMapDouble map);
+
+        void setLowerMap(ArcMapLong map);
+
+        void setUpperMap(ArcMapLong map);
+
+        MinCostFlowResultType run();
+
+        long flow(int arcIdx);
+    }
+
+    public interface MinCostFlowAlgorithmLong extends AutoCloseable {
+        void setSupplyMap(NodeMap map);
+
+        void setCostMap(ArcMapLong map);
 
         void setLowerMap(ArcMapLong map);
 
@@ -117,9 +135,9 @@ public class StaticDigraph extends AbstractNativeObject {
         }
     }
 
-    public class CostScaling extends AbstractNativeObject implements MinCostFlowAlgorithm {
+    public class CostScalingDouble extends AbstractNativeObject implements MinCostFlowAlgorithmDouble {
 
-        private CostScaling() {
+        private CostScalingDouble() {
             ptr = Library.LIB.SG_CostScaling_LONG_DOUBLE_construct(StaticDigraph.this.ptr);
         }
 
@@ -157,6 +175,49 @@ public class StaticDigraph extends AbstractNativeObject {
         @Override
         public long flow(int arcIdx) {
             return Library.LIB.SG_CostScaling_LONG_DOUBLE_flow(ptr, arcIdx);
+        }
+    }
+
+    public class CostScalingLong extends AbstractNativeObject implements MinCostFlowAlgorithmLong {
+
+        private CostScalingLong() {
+            ptr = Library.LIB.SG_CostScaling_LONG_LONG_construct(StaticDigraph.this.ptr);
+        }
+
+        @Override
+        protected void delete() {
+            Library.LIB.SG_CostScaling_LONG_LONG_destruct(ptr);
+        }
+
+        @Override
+        public void setSupplyMap(NodeMap map) {
+            Library.LIB.SG_CostScaling_LONG_LONG_setSupplyMap(ptr, map.ptr);
+        }
+
+        @Override
+        public void setCostMap(ArcMapLong map) {
+            Library.LIB.SG_CostScaling_LONG_LONG_setCostMap(ptr, map.ptr);
+        }
+
+        @Override
+        public void setLowerMap(ArcMapLong map) {
+            Library.LIB.SG_CostScaling_LONG_LONG_setLowerMap(ptr, map.ptr);
+        }
+
+        @Override
+        public void setUpperMap(ArcMapLong map) {
+            Library.LIB.SG_CostScaling_LONG_LONG_setUpperMap(ptr, map.ptr);
+        }
+
+        @Override
+        public MinCostFlowResultType run() {
+            int r = Library.LIB.SG_CostScaling_LONG_LONG_run(ptr);
+            return getMinCostFlowResultType(r);
+        }
+
+        @Override
+        public long flow(int arcIdx) {
+            return Library.LIB.SG_CostScaling_LONG_LONG_flow(ptr, arcIdx);
         }
     }
 }
