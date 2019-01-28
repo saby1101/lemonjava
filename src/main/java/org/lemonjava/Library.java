@@ -32,8 +32,8 @@ public class Library {
             suffix = "-linux-amd64.so";
         } else if (arch64 && osx) {
             suffix = "-osx-amd64.dylib";
-        } else if (windows) {
-            throw new IllegalArgumentException("Windows not supported!");
+        } else if (arch64 && windows) {
+            suffix = "-win-amd64.dll";
         } else {
             throw new IllegalStateException("Couldn't find lib for lemonc");
         }
